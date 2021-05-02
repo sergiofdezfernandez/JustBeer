@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "831277070918",
+    "project_id": "justbeer-45fcd",
+    "storage_bucket": "justbeer-45fcd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:831277070918:android:1239c8f33fa16cfe5ee847",
+        "android_client_info": {
+          "package_name": "com.uniovi.justbeer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "831277070918-e1lrs9r7bs9cimhasaf0384tbud7mg18.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOosm5u8Zuv8JsGrz3LCNYVo2q-G6PisY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "831277070918-e1lrs9r7bs9cimhasaf0384tbud7mg18.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
