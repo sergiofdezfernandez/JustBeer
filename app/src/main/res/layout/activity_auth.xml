@@ -38,6 +38,10 @@
             android:hint="Contraseña"
             android:inputType="textPassword" />
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -48,7 +52,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Registrar" />
+                android:background="@drawable/button_rounded_border"
+                android:text="Registrarse"
+                android:textColor="@color/colorPrimary" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -60,21 +66,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Acceder" />
+                android:text="Acceder"
+                android:textColor="@color/colorSecondary"
+                android:background="@drawable/button_rounded"/>
         </LinearLayout>
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="16dp" />
 
-        <Button
+        <ImageButton
             android:id="@+id/googleButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:paddingStart="16dp"
-            android:text="Google"
-            android:textAlignment="textStart"
-            android:textColor="@color/black" />
+            android:background="@color/colorPrimary"
+            android:contextClickable="true"
+            app:srcCompat="@mipmap/ic_google" />
+
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
