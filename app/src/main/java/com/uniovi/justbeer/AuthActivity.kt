@@ -13,10 +13,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.uniovi.justbeer.databinding.ActivityAuthBinding
 
+private const val GOOGLE_SIGN_IN = 100
 class AuthActivity : AppCompatActivity() {
-    private val GOOGLE_SIGN_IN = 100
     private lateinit var binding: ActivityAuthBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(binding.root)
