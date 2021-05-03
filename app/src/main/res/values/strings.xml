@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Just Beer</string>
+    <string name="prefs_file">com.uniovi.justbeer.PREFERENCE_FILE_KEY</string>
 </resources>
