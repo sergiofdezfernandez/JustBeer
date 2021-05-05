@@ -1,4 +1,4 @@
-package com.uniovi.justbeer
+package com.uniovi.justbeer.ui.auth
 
 import android.content.Context
 import android.content.Intent
@@ -11,9 +11,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.uniovi.justbeer.ui.MainActivity
+import com.uniovi.justbeer.R
 import com.uniovi.justbeer.databinding.ActivityAuthBinding
 
 private const val GOOGLE_SIGN_IN = 100
+
 class AuthActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuthBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +40,7 @@ class AuthActivity : AppCompatActivity() {
 
         if (email != null && provider != null) {
             binding.authLayout.visibility = View.INVISIBLE
-            showHome(email, ProviderType.valueOf(provider))
+            showHome()
         }
     }
 
@@ -50,7 +53,7 @@ class AuthActivity : AppCompatActivity() {
                     binding.passwordEditText.text.toString()
                 ).addOnCompleteListener {
                     if (it.isSuccessful) {
-                        showHome(it.result?.user?.email ?: "", ProviderType.BASIC)
+                        showHome()
                     } else {
                         showAlert()
                     }
@@ -64,7 +67,7 @@ class AuthActivity : AppCompatActivity() {
                     binding.passwordEditText.text.toString()
                 ).addOnCompleteListener {
                     if (it.isSuccessful) {
-                        showHome(it.result?.user?.email ?: "", ProviderType.BASIC)
+                        showHome()
                     } else {
                         showAlert()
                     }
@@ -82,11 +85,8 @@ class AuthActivity : AppCompatActivity() {
         }
     }
 
-    private fun showHome(email: String, provider: ProviderType) {
-        val homeIntent: Intent = Intent(this, HomeActivity::class.java).apply {
-            putExtra("email", email)
-            putExtra("provider", provider.name)
-        }
+    private fun showHome() {
+        val homeIntent = Intent(this, MainActivity::class.java)
         startActivity(homeIntent)
     }
 
@@ -105,17 +105,18 @@ class AuthActivity : AppCompatActivity() {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)
-                if(account != null){
-                    val credential = GoogleAuthProvider.getCredential(account.idToken,null)
-                    FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener {
-                        if(it.isSuccessful){
-                            showHome(account.email?:"",ProviderType.GOOGLE)
-                        }else{
-                            showAlert()
+                if (account != null) {
+                    val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+                    FirebaseAuth.getInstance().signInWithCredential(credential)
+                        .addOnCompleteListener {
+                            if (it.isSuccessful) {
+                                showHome()
+                            } else {
+                                showAlert()
+                            }
                         }
-                    }
                 }
-            }catch (e:ApiException){
+            } catch (e: ApiException) {
                 showAlert()
             }
         }
