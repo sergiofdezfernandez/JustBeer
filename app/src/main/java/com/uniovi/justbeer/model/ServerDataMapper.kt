@@ -15,7 +15,7 @@ object ServerDataMapper{
         return ModelBeer(
             id = beer.id,
             name = beer.name,
-            image = beer.image,
+            image = beer.image_url,
             alcohol = beer.abv
         )
     }
