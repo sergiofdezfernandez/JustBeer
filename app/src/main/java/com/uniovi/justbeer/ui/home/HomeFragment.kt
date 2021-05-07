@@ -9,9 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.uniovi.justbeer.R
 import com.uniovi.justbeer.databinding.HomeFragmentBinding
 import com.uniovi.justbeer.databinding.ProfileFragmentBinding
+import com.uniovi.justbeer.model.domain.BeerList
 import com.uniovi.justbeer.ui.favorites.FavoritesViewModel
 import com.uniovi.justbeer.ui.home.adapters.BeerListAdapter
 
@@ -26,24 +28,24 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.home_fragment, container, false)
         _binding = HomeFragmentBinding.inflate(inflater, container, false)
-        return root
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
-        binding.beerRecyclerView.layoutManager = LinearLayoutManager(activity)
-        activity?.let {
-            viewModel.beerList.observe(it) { beerList ->
+        binding.beerRecyclerView.apply {
+            layoutManager = LinearLayoutManager(activity)
+            viewModel.beerList.observe(viewLifecycleOwner) { beerList ->
                 binding.beerRecyclerView.adapter = BeerListAdapter(beerList) {
-                   // TODO: item click
+                    // TODO: item click
                 }
             }
+
         }
+
 
         viewModel.requestBeers()
     }
