@@ -1,5 +1,5 @@
 package com.uniovi.justbeer.ui.home
-
+import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.uniovi.justbeer.databinding.HomeFragmentBinding
+import com.uniovi.justbeer.ui.details.DetailsActivity
 import com.uniovi.justbeer.ui.home.adapters.BeerListAdapter
 
 class HomeFragment : Fragment() {
@@ -26,7 +27,9 @@ class HomeFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         viewModel.beerList.observe(viewLifecycleOwner) { beerList ->
             binding.beerRecyclerView.adapter = BeerListAdapter(beerList) {
-                // TODO: item click
+                startActivity(Intent(activity, DetailsActivity::class.java).apply {
+                    putExtra(DetailsActivity.EXTRA_BEER, it)
+                })
             }
         }
         viewModel.requestBeers()
