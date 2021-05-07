@@ -19,7 +19,7 @@ class BeerListAdapter(private val items: List<Beer>?, private val itemClick: (Be
                 // Dentro del bloque with, this es forecast.
                 binding.beerTextView.text = name
                 if(image != null){
-                    Picasso.get().load(image).into(binding.beerImageView)
+                    Picasso.get().load(image).resize(400,500).into(binding.beerImageView)
                 }
                 itemView.setOnClickListener { itemClick(this) }
             }
