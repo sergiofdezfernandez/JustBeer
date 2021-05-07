@@ -16,10 +16,9 @@ class BeerListAdapter(private val items: List<Beer>?, private val itemClick: (Be
         fun bindBeer(beer: Beer) {
             val binding = BeerCardViewBinding.bind(itemView)
             with(beer) {
-                // Dentro del bloque with, this es forecast.
                 binding.beerTextView.text = name
                 if(image != null){
-                    Picasso.get().load(image).resize(400,500).into(binding.beerImageView)
+                    Picasso.get().load(image).resize(250,550).into(binding.beerImageView)
                 }
                 itemView.setOnClickListener { itemClick(this) }
             }
@@ -27,10 +26,8 @@ class BeerListAdapter(private val items: List<Beer>?, private val itemClick: (Be
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        // Crea una nueva vista.
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.beer_card_view, parent, false) as CardView
-        // Retorna la vista bajo un objeto que herede de RecyclerView.ViewHolder
         return ViewHolder(view, itemClick)
     }
 
