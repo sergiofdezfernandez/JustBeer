@@ -4,4 +4,6 @@
     <string name="title_home">Home</string>
     <string name="title_favorites">Favorites</string>
     <string name="title_profile">My Profile</string>
+    <string name="added_beer">Added beer %1$s</string>
+    <string name="deleted_beer">Deleted beer %1$s</string>
 </resources>
