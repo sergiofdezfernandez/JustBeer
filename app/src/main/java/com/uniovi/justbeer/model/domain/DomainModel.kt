@@ -54,5 +54,8 @@ data class BeerList(val beers: List<Beer>) {
         suspend fun requestBeers(): List<Beer> {
             return PunkServer().requestBeers()
         }
+        suspend fun requestRecommendation(): Beer{
+            return PunkServer().requestRecommendation()
+        }
     }
 }

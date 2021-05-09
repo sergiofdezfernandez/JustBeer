@@ -20,6 +20,5 @@ class HomeViewModel : ViewModel() {
         viewModelScope.launch {
             _beerList.value = BeerList.requestBeers()
         }
-
     }
 }
