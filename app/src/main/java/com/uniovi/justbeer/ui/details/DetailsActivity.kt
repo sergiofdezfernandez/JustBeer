@@ -48,7 +48,7 @@ class DetailsActivity : AppCompatActivity() {
 
     private fun setReviewsRecyclerView() {
         val options = FirestoreRecyclerOptions.Builder<Review>()
-            .setQuery(ReviewList.requestReviews(2), Review::class.java).setLifecycleOwner(this)
+            .setQuery(ReviewList.requestReviews(beerId), Review::class.java).setLifecycleOwner(this)
             .build()
         val adapter = object : FirestoreRecyclerAdapter<Review, ReviewViewHolder>(options) {
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewViewHolder {
