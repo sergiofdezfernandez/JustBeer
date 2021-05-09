@@ -1,5 +1,4 @@
 package com.uniovi.justbeer.ui.activities.details
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
-import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import com.uniovi.justbeer.R
 import com.uniovi.justbeer.databinding.ActivityDetailsBinding
@@ -18,7 +16,6 @@ import com.uniovi.justbeer.databinding.ReviewCardViewBinding
 import com.uniovi.justbeer.model.domain.Beer
 import com.uniovi.justbeer.model.domain.Review
 import com.uniovi.justbeer.model.domain.ReviewList
-import com.uniovi.justbeer.model.domain.UserProfile
 import com.uniovi.justbeer.ui.dialogs.AddReviewDialog
 
 class DetailsActivity : AppCompatActivity() {
@@ -71,12 +68,6 @@ class DetailsActivity : AppCompatActivity() {
             binding.abvTextView.text = "$alcohol%"
             binding.descriptionTextView.text = description
             beerId = id
-        }
-        val prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE)
-        val userProfile =
-            Gson().fromJson(prefs.getString("userProfile", null), UserProfile::class.java)
-        if (userProfile.email != null && userProfile.email.isNotEmpty()) {
-            viewModel.requestReviewByUsername(userProfile.email)
         }
     }
 

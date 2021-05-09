@@ -1,4 +1,4 @@
-package com.uniovi.justbeer.ui.fragments.favorites
+package com.uniovi.justbeer.ui.fragments.recommendation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,7 +8,7 @@ import com.uniovi.justbeer.model.domain.Beer
 import com.uniovi.justbeer.model.domain.BeerList
 import kotlinx.coroutines.launch
 
-class FavoritesViewModel : ViewModel() {
+class RecommendationViewModel : ViewModel() {
     private val _recomendation: MutableLiveData<Beer> by lazy {
         MutableLiveData<Beer>()
     }

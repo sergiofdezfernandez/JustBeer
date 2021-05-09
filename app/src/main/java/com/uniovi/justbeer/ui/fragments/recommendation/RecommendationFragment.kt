@@ -1,4 +1,4 @@
-package com.uniovi.justbeer.ui.fragments.favorites
+package com.uniovi.justbeer.ui.fragments.recommendation
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -7,27 +7,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
-import com.uniovi.justbeer.databinding.FavoritesFragmentBinding
+import com.uniovi.justbeer.databinding.RecommendationFragmentBinding
 
 
-class FavoritesFragment : Fragment() {
+class RecommendationFragment : Fragment() {
 
-    private var _binding: FavoritesFragmentBinding? = null
+    private var _binding: RecommendationFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: FavoritesViewModel
+    private lateinit var viewModel: RecommendationViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FavoritesFragmentBinding.inflate(inflater, container, false)
+        _binding = RecommendationFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(FavoritesViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(RecommendationViewModel::class.java)
         viewModel.recommendation.observe(viewLifecycleOwner, {
             Picasso.get().load(it.image).resize(250, 550).into(binding.recommendationImageView)
             binding.recommendationTextView.text = it.name

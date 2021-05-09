@@ -16,9 +16,9 @@
 
     <fragment
         android:id="@+id/navigation_favorites"
-        android:name="com.uniovi.justbeer.ui.fragments.favorites.FavoritesFragment"
+        android:name="com.uniovi.justbeer.ui.fragments.recommendation.RecommendationFragment"
         android:label="@string/title_favorites"
-        tools:layout="@layout/favorites_fragment" >
+        tools:layout="@layout/recommendation_fragment" >
         <action
             android:id="@+id/action_navigation_favorites_to_navigation_profile"
             app:destination="@id/navigation_profile" />
