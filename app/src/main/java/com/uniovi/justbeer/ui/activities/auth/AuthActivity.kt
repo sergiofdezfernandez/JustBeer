@@ -24,7 +24,6 @@ class AuthActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuthBinding
 
     companion object {
-        const val TITLE = "Autenticación"
         const val GOOGLE_SIGN_IN = 100
         const val TAG = "AuthActivity"
     }
@@ -71,10 +70,10 @@ class AuthActivity : AppCompatActivity() {
                 }
             }.addOnFailureListener {
                 Log.d(TAG, it.message)
-                showAlert("Error",it.message.toString())
+                showAlert(getString(R.string.error),it.message.toString())
             }
         } else {
-            showAlert("Info","Introduzca valores en los campos porfavor")
+            showAlert(getString(R.string.info),getString(R.string.info_message))
         }
     }
 
@@ -95,10 +94,10 @@ class AuthActivity : AppCompatActivity() {
                 }
             }.addOnFailureListener {
                 Log.d(TAG, it.message)
-                showAlert("Error",it.message.toString())
+                showAlert(getString(R.string.error),it.message.toString())
             }
         }else{
-            showAlert("Info","Introduzca valores en los campos porfavor")
+            showAlert(getString(R.string.info),getString(R.string.info_message))
         }
     }
 
@@ -113,7 +112,7 @@ class AuthActivity : AppCompatActivity() {
     }
 
     private fun setUp() {
-        title = TITLE
+        title = getString(R.string.authentication)
         binding.signUpButton.setOnClickListener { onSignUp() }
         binding.loginButton.setOnClickListener { onLogin() }
         binding.googleButton.setOnClickListener { onGoogleLogin() }
@@ -130,7 +129,7 @@ class AuthActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle(title)
         builder.setMessage(msg)
-        builder.setPositiveButton("OK", null)
+        builder.setPositiveButton(getString(R.string.ok), null)
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }
@@ -156,7 +155,7 @@ class AuthActivity : AppCompatActivity() {
                             }
                         }.addOnFailureListener {
                             Log.d(TAG, it.message)
-                            showAlert("Error",it.message.toString())
+                            showAlert(getString(R.string.error),it.message.toString())
                         }
                 }
             } catch (e: ApiException) {
