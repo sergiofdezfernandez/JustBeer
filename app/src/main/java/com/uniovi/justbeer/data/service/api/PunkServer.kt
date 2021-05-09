@@ -26,4 +26,11 @@ class PunkServer{
             ServerDataMapper.convertToDomain(result)
         }
     }
+
+    suspend fun requestRecommendation(): Beer{
+        return withContext(Dispatchers.IO){
+            val result = serviceBeer.requestRecommendation().await()
+            ServerDataMapper.convertToDomain(result)[0]
+        }
+    }
 }
