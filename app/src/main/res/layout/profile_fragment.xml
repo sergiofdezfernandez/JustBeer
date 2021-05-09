@@ -43,7 +43,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PROVIDER"
+                    android:text="@string/profile_provider"
                     android:textAlignment="center" />
 
                 <TextView
@@ -62,7 +62,7 @@
                     android:id="@+id/emailLabel"
                     android:layout_width="135dp"
                     android:layout_height="wrap_content"
-                    android:text="EMAIL"
+                    android:text="@string/profile_email"
                     android:textAlignment="center" />
 
                 <TextView
@@ -81,7 +81,7 @@
                     android:id="@+id/providerLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="ID"
+                    android:text="@string/profile_id"
                     android:textAlignment="center" />
 
                 <TextView
@@ -100,7 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:text="Log Out"
+            android:text="@string/log_out"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tableLayout" />

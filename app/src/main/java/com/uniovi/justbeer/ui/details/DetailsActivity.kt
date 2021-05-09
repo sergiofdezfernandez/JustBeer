@@ -28,14 +28,13 @@ class DetailsActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_BEER = "DetailBeer::beer"
-        const val TITLE = "Beer Details"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        title = TITLE
+        title = getString(R.string.beer_details)
         initialize()
         setReviewsRecyclerView()
         binding.addReviewFloatingButton.setOnClickListener { onNewReview() }

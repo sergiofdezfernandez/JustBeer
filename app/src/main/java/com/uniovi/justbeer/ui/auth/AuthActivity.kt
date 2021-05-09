@@ -24,7 +24,7 @@ class AuthActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuthBinding
 
     companion object {
-        const val TITLE = "Autenticación"
+        const val USER_PROFILE = "userProfile"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +43,7 @@ class AuthActivity : AppCompatActivity() {
 
     private fun session() {
         val prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE)
-        val userProfile = prefs.getString("userProfile", null)
+        val userProfile = prefs.getString(USER_PROFILE, null)
 
         if (userProfile != null) {
             binding.authLayout.visibility = View.INVISIBLE
@@ -53,7 +53,7 @@ class AuthActivity : AppCompatActivity() {
     }
 
     private fun setUp() {
-        title = TITLE
+        title = getString(R.string.authentication)
         binding.signUpButton.setOnClickListener {
             if (binding.emailEditText.text.isNotEmpty() && binding.passwordEditText.text.isNotEmpty()) {
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(
@@ -107,16 +107,16 @@ class AuthActivity : AppCompatActivity() {
 
     private fun showHome(userProfile: UserProfile) {
         val homeIntent = Intent(this, MainActivity::class.java).apply {
-            putExtra("userProfile", userProfile)
+            putExtra(USER_PROFILE, userProfile)
         }
         startActivity(homeIntent)
     }
 
     private fun showAlert() {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Error")
-        builder.setMessage("Se ha producido un error autenticando al usuario")
-        builder.setPositiveButton("Aceptar", null)
+        builder.setTitle(R.string.error)
+        builder.setMessage(R.string.auth_error_message)
+        builder.setPositiveButton(R.string.ok, null)
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }
