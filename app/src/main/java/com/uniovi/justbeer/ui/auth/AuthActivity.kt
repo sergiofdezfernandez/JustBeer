@@ -2,29 +2,32 @@ package com.uniovi.justbeer.ui.auth
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.gson.Gson
-import com.uniovi.justbeer.ui.MainActivity
 import com.uniovi.justbeer.R
 import com.uniovi.justbeer.databinding.ActivityAuthBinding
 import com.uniovi.justbeer.model.domain.ProviderType
 import com.uniovi.justbeer.model.domain.UserProfile
+import com.uniovi.justbeer.ui.MainActivity
+import java.lang.Exception
 
-private const val GOOGLE_SIGN_IN = 100
 
 class AuthActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuthBinding
 
     companion object {
         const val TITLE = "Autenticación"
+        const val GOOGLE_SIGN_IN = 100
+        const val TAG = "AuthActivity"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,57 +55,64 @@ class AuthActivity : AppCompatActivity() {
         }
     }
 
+    private fun onSignUp() {
+        if (binding.emailEditText.text.isNotEmpty() && binding.passwordEditText.text.isNotEmpty()) {
+            FirebaseAuth.getInstance().createUserWithEmailAndPassword(
+                binding.emailEditText.text.toString(),
+                binding.passwordEditText.text.toString()
+            ).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    showHome(
+                        UserProfile(
+                            it.result?.user?.uid,
+                            it.result?.user?.email,
+                            ProviderType.BASIC
+                        )
+                    )
+                } else {
+                    showAlert("Ha ocurrido un error")
+                }
+            }
+        }
+    }
+
+    private fun onLogin() {
+        if (binding.emailEditText.text.isNotEmpty() && binding.passwordEditText.text.isNotEmpty()) {
+            FirebaseAuth.getInstance().signInWithEmailAndPassword(
+                binding.emailEditText.text.toString(),
+                binding.passwordEditText.text.toString()
+            ).addOnCompleteListener {
+                if(it.isSuccessful){
+                    showHome(
+                        UserProfile(
+                            it.result?.user?.uid,
+                            it.result?.user?.email,
+                            ProviderType.BASIC
+                        )
+                    )
+                }
+            }.addOnFailureListener {
+                Log.d(TAG, it.message)
+                showAlert(it.message.toString())
+            }
+        }
+    }
+
+    private fun onGoogleLogin() {
+        val googleConf = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        val googleClient = GoogleSignIn.getClient(this, googleConf)
+        googleClient.signOut()
+        startActivityForResult(googleClient.signInIntent, GOOGLE_SIGN_IN)
+    }
+
     private fun setUp() {
         title = TITLE
-        binding.signUpButton.setOnClickListener {
-            if (binding.emailEditText.text.isNotEmpty() && binding.passwordEditText.text.isNotEmpty()) {
-                FirebaseAuth.getInstance().createUserWithEmailAndPassword(
-                    binding.emailEditText.text.toString(),
-                    binding.passwordEditText.text.toString()
-                ).addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        showHome(
-                            UserProfile(
-                                it.result?.user?.uid,
-                                it.result?.user?.email,
-                                ProviderType.BASIC
-                            )
-                        )
-                    } else {
-                        showAlert()
-                    }
-                }
-            }
-        }
-        binding.loginButton.setOnClickListener {
-            if (binding.emailEditText.text.isNotEmpty() && binding.passwordEditText.text.isNotEmpty()) {
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(
-                    binding.emailEditText.text.toString(),
-                    binding.passwordEditText.text.toString()
-                ).addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        showHome(
-                            UserProfile(
-                                it.result?.user?.uid,
-                                it.result?.user?.email,
-                                ProviderType.BASIC
-                            )
-                        )
-                    } else {
-                        showAlert()
-                    }
-                }
-            }
-        }
-        binding.googleButton.setOnClickListener {
-            val googleConf = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build()
-            val googleClient = GoogleSignIn.getClient(this, googleConf)
-            googleClient.signOut()
-            startActivityForResult(googleClient.signInIntent, GOOGLE_SIGN_IN)
-        }
+        binding.signUpButton.setOnClickListener { onSignUp() }
+        binding.loginButton.setOnClickListener { onLogin() }
+        binding.googleButton.setOnClickListener { onGoogleLogin() }
     }
 
     private fun showHome(userProfile: UserProfile) {
@@ -112,11 +122,11 @@ class AuthActivity : AppCompatActivity() {
         startActivity(homeIntent)
     }
 
-    private fun showAlert() {
+    private fun showAlert(msg: String) {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Error")
-        builder.setMessage("Se ha producido un error autenticando al usuario")
-        builder.setPositiveButton("Aceptar", null)
+        builder.setMessage(msg)
+        builder.setPositiveButton("OK", null)
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }
@@ -139,13 +149,14 @@ class AuthActivity : AppCompatActivity() {
                                         ProviderType.GOOGLE
                                     )
                                 )
-                            } else {
-                                showAlert()
                             }
+                        }.addOnFailureListener {
+                            Log.d(TAG, it.message)
+                            showAlert(it.message.toString())
                         }
                 }
             } catch (e: ApiException) {
-                showAlert()
+                Log.d(TAG, e.stackTraceToString())
             }
         }
     }
