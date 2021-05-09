@@ -1,4 +1,4 @@
-package com.uniovi.justbeer.ui.favorites
+package com.uniovi.justbeer.ui.fragments.favorites
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle

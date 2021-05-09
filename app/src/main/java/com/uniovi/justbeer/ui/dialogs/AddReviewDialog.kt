@@ -1,4 +1,4 @@
-package com.uniovi.justbeer.ui.details.addReview
+package com.uniovi.justbeer.ui.dialogs
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -8,10 +8,9 @@ import android.view.LayoutInflater
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.google.firebase.auth.FirebaseAuth
-
 import com.uniovi.justbeer.databinding.DialogAddReviewBinding
 import com.uniovi.justbeer.model.domain.Review
-import com.uniovi.justbeer.ui.details.ReviewsViewModel
+import com.uniovi.justbeer.ui.activities.details.ReviewsViewModel
 
 class AddReviewDialog : DialogFragment() {
     companion object {

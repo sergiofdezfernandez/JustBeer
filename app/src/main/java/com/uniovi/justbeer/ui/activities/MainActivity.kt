@@ -1,4 +1,4 @@
-package com.uniovi.justbeer.ui
+package com.uniovi.justbeer.ui.activities
 
 import android.content.Context
 import android.os.Bundle

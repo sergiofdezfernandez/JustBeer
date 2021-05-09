@@ -1,4 +1,4 @@
-package com.uniovi.justbeer.ui.home
+package com.uniovi.justbeer.ui.fragments.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

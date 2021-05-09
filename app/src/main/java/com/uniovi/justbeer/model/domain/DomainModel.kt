@@ -2,13 +2,10 @@ package com.uniovi.justbeer.model.domain
 
 
 import android.os.Parcelable
-import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.QuerySnapshot
 import com.uniovi.justbeer.data.database.ReviewRepository
 import com.uniovi.justbeer.data.service.api.PunkServer
 import kotlinx.parcelize.Parcelize
-import java.io.Serializable
 
 @Parcelize
 data class Beer(
@@ -54,7 +51,8 @@ data class BeerList(val beers: List<Beer>) {
         suspend fun requestBeers(): List<Beer> {
             return PunkServer().requestBeers()
         }
-        suspend fun requestRecommendation(): Beer{
+
+        suspend fun requestRecommendation(): Beer {
             return PunkServer().requestRecommendation()
         }
     }

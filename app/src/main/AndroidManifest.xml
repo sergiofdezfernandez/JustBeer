@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.uniovi.justbeer">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -11,12 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.details.DetailsActivity"
+            android:name="com.uniovi.justbeer.ui.activities.details.DetailsActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.MainActivity" />
+        <activity android:name=".ui.activities.MainActivity" />
         <activity
-            android:name=".ui.auth.AuthActivity"
-            android:theme="@style/SplashTheme">
+            android:name="com.uniovi.justbeer.ui.activities.auth.AuthActivity"
+            android:theme="@style/SplashTheme"
+            tools:ignore="MissingClass">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

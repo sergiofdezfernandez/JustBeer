@@ -1,4 +1,4 @@
-package com.uniovi.justbeer.ui.auth
+package com.uniovi.justbeer.ui.activities.auth
 
 import android.content.Context
 import android.content.Intent
@@ -17,8 +17,7 @@ import com.uniovi.justbeer.R
 import com.uniovi.justbeer.databinding.ActivityAuthBinding
 import com.uniovi.justbeer.model.domain.ProviderType
 import com.uniovi.justbeer.model.domain.UserProfile
-import com.uniovi.justbeer.ui.MainActivity
-import java.lang.Exception
+import com.uniovi.justbeer.ui.activities.MainActivity
 
 
 class AuthActivity : AppCompatActivity() {
