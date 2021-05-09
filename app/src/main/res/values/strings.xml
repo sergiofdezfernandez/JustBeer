@@ -15,7 +15,9 @@
     <string name="profile_id">ID</string>
     <string name="authentication">Authentication</string>
     <string name="error">Error</string>
-    <string name="auth_error_message"></string>
     <string name="ok">Ok</string>
     <string name="beer_details">Beer Details</string>
+    <string name="comment">Comment</string>
+    <string name="save">SAVE</string>
+    <string name="cancel">CANCEL</string>
 </resources>

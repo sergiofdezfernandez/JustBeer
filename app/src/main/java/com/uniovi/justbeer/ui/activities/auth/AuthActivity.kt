@@ -24,7 +24,6 @@ class AuthActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuthBinding
 
     companion object {
-        const val TITLE = "Autenticación"
         const val GOOGLE_SIGN_IN = 100
         const val TAG = "AuthActivity"
     }
@@ -109,7 +108,7 @@ class AuthActivity : AppCompatActivity() {
     }
 
     private fun setUp() {
-        title = TITLE
+        title = getString(R.string.authentication)
         binding.signUpButton.setOnClickListener { onSignUp() }
         binding.loginButton.setOnClickListener { onLogin() }
         binding.googleButton.setOnClickListener { onGoogleLogin() }
@@ -124,9 +123,9 @@ class AuthActivity : AppCompatActivity() {
 
     private fun showAlert(msg: String) {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Error")
+        builder.setTitle(getString(R.string.error))
         builder.setMessage(msg)
-        builder.setPositiveButton("OK", null)
+        builder.setPositiveButton(getString(R.string.ok), null)
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.google.firebase.auth.FirebaseAuth
+import com.uniovi.justbeer.R
 import com.uniovi.justbeer.databinding.DialogAddReviewBinding
 import com.uniovi.justbeer.model.domain.Review
 import com.uniovi.justbeer.ui.activities.details.ReviewsViewModel
@@ -34,7 +35,7 @@ class AddReviewDialog : DialogFragment() {
         setLimits(0, 5)
         val builder = AlertDialog.Builder(activity)
         builder.setView(binding.root)
-            .setPositiveButton("SAVE") { dialog: DialogInterface, _: Int ->
+            .setPositiveButton(getString(R.string.save)) { dialog: DialogInterface, _: Int ->
                 val review = Review(
                     FirebaseAuth.getInstance().currentUser.email,
                     binding.commentEditText.text.toString(),
@@ -43,7 +44,7 @@ class AddReviewDialog : DialogFragment() {
                 )
                 viewModel.requestAddReview(review)
             }
-            .setNegativeButton("CANCEL") { dialog: DialogInterface, _: Int ->
+            .setNegativeButton(getString(R.string.cancel)) { dialog: DialogInterface, _: Int ->
                 dialog.cancel()
             }
         return builder.create()
