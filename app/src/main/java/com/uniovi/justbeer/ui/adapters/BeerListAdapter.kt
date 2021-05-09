@@ -1,4 +1,4 @@
-package com.uniovi.justbeer.ui.home.adapters
+package com.uniovi.justbeer.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -16,7 +16,6 @@ class BeerListAdapter(private val items: List<Beer>?, private val itemClick: (Be
         fun bindBeer(beer: Beer) {
             val binding = BeerCardViewBinding.bind(itemView)
             with(beer) {
-                // Dentro del bloque with, this es forecast.
                 binding.beerTextView.text = name
                 if(image != null){
                     Picasso.get().load(image).resize(400,500).into(binding.beerImageView)
