@@ -21,4 +21,6 @@
     <string name="comment">Comentario</string>
     <string name="save">GUARDAR</string>
     <string name="cancel">CANCELAR</string>
+    <string name="info">Información</string>
+    <string name="info_message">Introduzca valores en los campos</string>
 </resources>

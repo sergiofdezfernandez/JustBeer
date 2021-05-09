@@ -20,4 +20,6 @@
     <string name="comment">Comment</string>
     <string name="save">SAVE</string>
     <string name="cancel">CANCEL</string>
+    <string name="info">Information</string>
+    <string name="info_message">Enter values in the fields</string>
 </resources>
