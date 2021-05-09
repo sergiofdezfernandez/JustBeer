@@ -1,5 +1,6 @@
 package com.uniovi.justbeer.ui.profile
 
+import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -8,8 +9,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
+import com.google.gson.Gson
 import com.squareup.picasso.Picasso
+import com.uniovi.justbeer.R
 import com.uniovi.justbeer.databinding.ProfileFragmentBinding
+import com.uniovi.justbeer.model.domain.UserProfile
 
 
 class ProfileFragment : Fragment() {
@@ -30,22 +34,24 @@ class ProfileFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
-        viewModel.userProfile.observe(viewLifecycleOwner, {
-            binding.emailTextView.text = it.email
-            binding.userIdTextView.text = it.uid
-            if (it.photoUrl != null) {
-                setImage(it.photoUrl)
-            }
-        })
         binding.logOutButton.setOnClickListener {
+            val prefs =
+                activity?.getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE)
+                    ?.edit()
+            prefs?.clear()
+            prefs?.apply()
             FirebaseAuth.getInstance().signOut()
             activity?.finish()
         }
+        val prefs =
+            activity?.getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE)
+        val userProfile =
+            Gson().fromJson(prefs?.getString("userProfile", null), UserProfile::class.java)
+        binding.emailTextView.text = userProfile?.email
+        binding.userIdTextView.text = userProfile?.id
+        binding.providerTextView.text = userProfile?.provider.toString()
     }
 
-    private fun setImage(url: Uri) {
-        Picasso.get().load(url).into(binding.userImageView)
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

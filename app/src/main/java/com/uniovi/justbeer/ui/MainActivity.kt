@@ -1,12 +1,16 @@
 package com.uniovi.justbeer.ui
-import androidx.appcompat.app.AppCompatActivity
+
+import android.content.Context
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.gson.Gson
 import com.uniovi.justbeer.R
+import com.uniovi.justbeer.model.domain.UserProfile
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,5 +26,14 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        savePreferences()
+    }
+
+    private fun savePreferences() {
+        val bundle = intent.extras
+        val userProfile = bundle?.getParcelable<UserProfile>("userProfile")
+        val prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE).edit()
+        prefs?.putString("userProfile", Gson().toJson(userProfile))
+        prefs?.commit()
     }
 }

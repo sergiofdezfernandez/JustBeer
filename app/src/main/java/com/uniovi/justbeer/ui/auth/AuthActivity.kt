@@ -11,14 +11,22 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.gson.Gson
 import com.uniovi.justbeer.ui.MainActivity
 import com.uniovi.justbeer.R
 import com.uniovi.justbeer.databinding.ActivityAuthBinding
+import com.uniovi.justbeer.model.domain.ProviderType
+import com.uniovi.justbeer.model.domain.UserProfile
 
 private const val GOOGLE_SIGN_IN = 100
 
 class AuthActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuthBinding
+
+    companion object {
+        const val TITLE = "Autenticación"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
@@ -35,17 +43,17 @@ class AuthActivity : AppCompatActivity() {
 
     private fun session() {
         val prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE)
-        val email = prefs.getString("email", null)
-        val provider = prefs.getString("provider", null)
+        val userProfile = prefs.getString("userProfile", null)
 
-        if (email != null && provider != null) {
+        if (userProfile != null) {
             binding.authLayout.visibility = View.INVISIBLE
-            showHome()
+            val userProfile = Gson().fromJson(userProfile, UserProfile::class.java)
+            showHome(userProfile)
         }
     }
 
     private fun setUp() {
-        title = "Autenticación"
+        title = TITLE
         binding.signUpButton.setOnClickListener {
             if (binding.emailEditText.text.isNotEmpty() && binding.passwordEditText.text.isNotEmpty()) {
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(
@@ -53,7 +61,13 @@ class AuthActivity : AppCompatActivity() {
                     binding.passwordEditText.text.toString()
                 ).addOnCompleteListener {
                     if (it.isSuccessful) {
-                        showHome()
+                        showHome(
+                            UserProfile(
+                                it.result?.user?.uid,
+                                it.result?.user?.email,
+                                ProviderType.BASIC
+                            )
+                        )
                     } else {
                         showAlert()
                     }
@@ -67,7 +81,13 @@ class AuthActivity : AppCompatActivity() {
                     binding.passwordEditText.text.toString()
                 ).addOnCompleteListener {
                     if (it.isSuccessful) {
-                        showHome()
+                        showHome(
+                            UserProfile(
+                                it.result?.user?.uid,
+                                it.result?.user?.email,
+                                ProviderType.BASIC
+                            )
+                        )
                     } else {
                         showAlert()
                     }
@@ -85,8 +105,10 @@ class AuthActivity : AppCompatActivity() {
         }
     }
 
-    private fun showHome() {
-        val homeIntent = Intent(this, MainActivity::class.java)
+    private fun showHome(userProfile: UserProfile) {
+        val homeIntent = Intent(this, MainActivity::class.java).apply {
+            putExtra("userProfile", userProfile)
+        }
         startActivity(homeIntent)
     }
 
@@ -110,7 +132,13 @@ class AuthActivity : AppCompatActivity() {
                     FirebaseAuth.getInstance().signInWithCredential(credential)
                         .addOnCompleteListener {
                             if (it.isSuccessful) {
-                                showHome()
+                                showHome(
+                                    UserProfile(
+                                        it.result?.user?.uid,
+                                        it.result?.user?.email,
+                                        ProviderType.GOOGLE
+                                    )
+                                )
                             } else {
                                 showAlert()
                             }
