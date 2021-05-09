@@ -13,48 +13,38 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
-                android:layout_width="142dp"
+            <TextView
+                android:id="@+id/usernameTextView"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/usernameTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textStyle="bold" />
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:isIndicator="true"
+                android:progressTint="@color/colorSecondary" />
 
-            </LinearLayout>
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/reviewDescriptionTextView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <RatingBar
-                    android:id="@+id/ratingBar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:isIndicator="true"
-                    android:progressTint="@color/colorSecondary" />
-
-                <TextView
-                    android:id="@+id/reviewDescriptionTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-            </LinearLayout>
-
+                android:layout_height="0dp"
+                android:layout_weight="1" />
         </LinearLayout>
 
 

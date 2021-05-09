@@ -14,9 +14,12 @@
         <activity
             android:name="com.uniovi.justbeer.ui.activities.details.DetailsActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activities.MainActivity" />
+        <activity
+            android:name=".ui.activities.MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.uniovi.justbeer.ui.activities.auth.AuthActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/SplashTheme"
             tools:ignore="MissingClass">
             <intent-filter>
