@@ -6,7 +6,7 @@
     app:startDestination="@id/navigation_home">
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.uniovi.justbeer.ui.home.HomeFragment"
+        android:name="com.uniovi.justbeer.ui.fragments.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/home_fragment" >
         <action
@@ -16,7 +16,7 @@
 
     <fragment
         android:id="@+id/navigation_favorites"
-        android:name="com.uniovi.justbeer.ui.favorites.FavoritesFragment"
+        android:name="com.uniovi.justbeer.ui.fragments.favorites.FavoritesFragment"
         android:label="@string/title_favorites"
         tools:layout="@layout/favorites_fragment" >
         <action
@@ -26,7 +26,7 @@
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.uniovi.justbeer.ui.profile.ProfileFragment"
+        android:name="com.uniovi.justbeer.ui.fragments.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/profile_fragment" >
         <action

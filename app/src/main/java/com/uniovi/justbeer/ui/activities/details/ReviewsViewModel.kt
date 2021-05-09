@@ -1,4 +1,4 @@
-package com.uniovi.justbeer.ui.details
+package com.uniovi.justbeer.ui.activities.details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

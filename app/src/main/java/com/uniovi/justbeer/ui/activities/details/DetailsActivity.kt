@@ -1,4 +1,4 @@
-package com.uniovi.justbeer.ui.details
+package com.uniovi.justbeer.ui.activities.details
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,7 +19,7 @@ import com.uniovi.justbeer.model.domain.Beer
 import com.uniovi.justbeer.model.domain.Review
 import com.uniovi.justbeer.model.domain.ReviewList
 import com.uniovi.justbeer.model.domain.UserProfile
-import com.uniovi.justbeer.ui.details.addReview.AddReviewDialog
+import com.uniovi.justbeer.ui.dialogs.AddReviewDialog
 
 class DetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailsBinding

@@ -1,30 +1,32 @@
-package com.uniovi.justbeer.ui.auth
+package com.uniovi.justbeer.ui.activities.auth
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.gson.Gson
-import com.uniovi.justbeer.ui.MainActivity
 import com.uniovi.justbeer.R
 import com.uniovi.justbeer.databinding.ActivityAuthBinding
 import com.uniovi.justbeer.model.domain.ProviderType
 import com.uniovi.justbeer.model.domain.UserProfile
+import com.uniovi.justbeer.ui.activities.MainActivity
 
-private const val GOOGLE_SIGN_IN = 100
 
 class AuthActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuthBinding
 
     companion object {
-        const val USER_PROFILE = "userProfile"
+        const val TITLE = "Autenticación"
+        const val GOOGLE_SIGN_IN = 100
+        const val TAG = "AuthActivity"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +45,7 @@ class AuthActivity : AppCompatActivity() {
 
     private fun session() {
         val prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE)
-        val userProfile = prefs.getString(USER_PROFILE, null)
+        val userProfile = prefs.getString("userProfile", null)
 
         if (userProfile != null) {
             binding.authLayout.visibility = View.INVISIBLE
@@ -52,71 +54,79 @@ class AuthActivity : AppCompatActivity() {
         }
     }
 
+    private fun onSignUp() {
+        if (binding.emailEditText.text.isNotEmpty() && binding.passwordEditText.text.isNotEmpty()) {
+            FirebaseAuth.getInstance().createUserWithEmailAndPassword(
+                binding.emailEditText.text.toString(),
+                binding.passwordEditText.text.toString()
+            ).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    showHome(
+                        UserProfile(
+                            it.result?.user?.uid,
+                            it.result?.user?.email,
+                            ProviderType.BASIC
+                        )
+                    )
+                }
+            }.addOnFailureListener {
+                Log.d(TAG, it.message)
+                showAlert(it.message.toString())
+            }
+        }
+    }
+
+    private fun onLogin() {
+        if (binding.emailEditText.text.isNotEmpty() && binding.passwordEditText.text.isNotEmpty()) {
+            FirebaseAuth.getInstance().signInWithEmailAndPassword(
+                binding.emailEditText.text.toString(),
+                binding.passwordEditText.text.toString()
+            ).addOnCompleteListener {
+                if(it.isSuccessful){
+                    showHome(
+                        UserProfile(
+                            it.result?.user?.uid,
+                            it.result?.user?.email,
+                            ProviderType.BASIC
+                        )
+                    )
+                }
+            }.addOnFailureListener {
+                Log.d(TAG, it.message)
+                showAlert(it.message.toString())
+            }
+        }
+    }
+
+    private fun onGoogleLogin() {
+        val googleConf = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        val googleClient = GoogleSignIn.getClient(this, googleConf)
+        googleClient.signOut()
+        startActivityForResult(googleClient.signInIntent, GOOGLE_SIGN_IN)
+    }
+
     private fun setUp() {
-        title = getString(R.string.authentication)
-        binding.signUpButton.setOnClickListener {
-            if (binding.emailEditText.text.isNotEmpty() && binding.passwordEditText.text.isNotEmpty()) {
-                FirebaseAuth.getInstance().createUserWithEmailAndPassword(
-                    binding.emailEditText.text.toString(),
-                    binding.passwordEditText.text.toString()
-                ).addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        showHome(
-                            UserProfile(
-                                it.result?.user?.uid,
-                                it.result?.user?.email,
-                                ProviderType.BASIC
-                            )
-                        )
-                    } else {
-                        showAlert()
-                    }
-                }
-            }
-        }
-        binding.loginButton.setOnClickListener {
-            if (binding.emailEditText.text.isNotEmpty() && binding.passwordEditText.text.isNotEmpty()) {
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(
-                    binding.emailEditText.text.toString(),
-                    binding.passwordEditText.text.toString()
-                ).addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        showHome(
-                            UserProfile(
-                                it.result?.user?.uid,
-                                it.result?.user?.email,
-                                ProviderType.BASIC
-                            )
-                        )
-                    } else {
-                        showAlert()
-                    }
-                }
-            }
-        }
-        binding.googleButton.setOnClickListener {
-            val googleConf = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build()
-            val googleClient = GoogleSignIn.getClient(this, googleConf)
-            googleClient.signOut()
-            startActivityForResult(googleClient.signInIntent, GOOGLE_SIGN_IN)
-        }
+        title = TITLE
+        binding.signUpButton.setOnClickListener { onSignUp() }
+        binding.loginButton.setOnClickListener { onLogin() }
+        binding.googleButton.setOnClickListener { onGoogleLogin() }
     }
 
     private fun showHome(userProfile: UserProfile) {
         val homeIntent = Intent(this, MainActivity::class.java).apply {
-            putExtra(USER_PROFILE, userProfile)
+            putExtra("userProfile", userProfile)
         }
         startActivity(homeIntent)
     }
 
-    private fun showAlert() {
+    private fun showAlert(msg: String) {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle(R.string.error)
-        builder.setMessage(R.string.auth_error_message)
-        builder.setPositiveButton(R.string.ok, null)
+        builder.setTitle("Error")
+        builder.setMessage(msg)
+        builder.setPositiveButton("OK", null)
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }
@@ -139,13 +149,14 @@ class AuthActivity : AppCompatActivity() {
                                         ProviderType.GOOGLE
                                     )
                                 )
-                            } else {
-                                showAlert()
                             }
+                        }.addOnFailureListener {
+                            Log.d(TAG, it.message)
+                            showAlert(it.message.toString())
                         }
                 }
             } catch (e: ApiException) {
-                showAlert()
+                Log.d(TAG, e.stackTraceToString())
             }
         }
     }

@@ -1,7 +1,6 @@
-package com.uniovi.justbeer.ui.profile
+package com.uniovi.justbeer.ui.fragments.profile
 
 import android.content.Context
-import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
-import com.squareup.picasso.Picasso
 import com.uniovi.justbeer.R
 import com.uniovi.justbeer.databinding.ProfileFragmentBinding
 import com.uniovi.justbeer.model.domain.UserProfile
@@ -34,15 +32,21 @@ class ProfileFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
-        binding.logOutButton.setOnClickListener {
-            val prefs =
-                activity?.getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE)
-                    ?.edit()
-            prefs?.clear()
-            prefs?.apply()
-            FirebaseAuth.getInstance().signOut()
-            activity?.finish()
-        }
+        binding.logOutButton.setOnClickListener { onLogOut() }
+        bindUserProfile()
+    }
+
+    private fun onLogOut() {
+        val prefs =
+            activity?.getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE)
+                ?.edit()
+        prefs?.clear()
+        prefs?.apply()
+        FirebaseAuth.getInstance().signOut()
+        activity?.finish()
+    }
+
+    private fun bindUserProfile() {
         val prefs =
             activity?.getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE)
         val userProfile =
@@ -51,7 +55,6 @@ class ProfileFragment : Fragment() {
         binding.userIdTextView.text = userProfile?.id
         binding.providerTextView.text = userProfile?.provider.toString()
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

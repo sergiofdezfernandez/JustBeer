@@ -1,4 +1,4 @@
-package com.uniovi.justbeer.ui.profile
+package com.uniovi.justbeer.ui.fragments.profile
 
 import androidx.lifecycle.ViewModel
 

@@ -1,4 +1,4 @@
-package com.uniovi.justbeer.ui.home
+package com.uniovi.justbeer.ui.fragments.home
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.uniovi.justbeer.databinding.HomeFragmentBinding
-import com.uniovi.justbeer.ui.details.DetailsActivity
+import com.uniovi.justbeer.ui.activities.details.DetailsActivity
 import com.uniovi.justbeer.ui.adapters.BeerListAdapter
 
 class HomeFragment : Fragment() {
