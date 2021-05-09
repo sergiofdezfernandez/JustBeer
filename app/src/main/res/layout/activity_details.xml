@@ -48,13 +48,13 @@
                     <ImageView
                         android:id="@+id/beerDetailsImageView"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         tools:srcCompat="@tools:sample/avatars" />
 
                     <TextView
                         android:id="@+id/abvTextView"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="TextView"
                         android:textAlignment="center"
                         android:textStyle="bold" />
@@ -84,17 +84,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/addReviewFloatingButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="bottom|right"
-                    android:layout_margin="8dp"
-                    android:clickable="true"
-                    android:tooltipText="Add new review"
-                    app:backgroundTint="@color/colorPrimary"
-                    app:srcCompat="@drawable/ic_baseline_add_24" />
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/reviewsRecycledView"
                     android:layout_width="match_parent"
@@ -108,5 +97,18 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addReviewFloatingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="8dp"
+        android:clickable="true"
+        android:tooltipText="Add new review"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_baseline_add_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
