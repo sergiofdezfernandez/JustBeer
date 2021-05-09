@@ -24,6 +24,7 @@ class AuthActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuthBinding
 
     companion object {
+        const val TITLE = "Autenticación"
         const val GOOGLE_SIGN_IN = 100
         const val TAG = "AuthActivity"
     }
@@ -70,8 +71,10 @@ class AuthActivity : AppCompatActivity() {
                 }
             }.addOnFailureListener {
                 Log.d(TAG, it.message)
-                showAlert(it.message.toString())
+                showAlert("Error",it.message.toString())
             }
+        } else {
+            showAlert("Info","Introduzca valores en los campos porfavor")
         }
     }
 
@@ -81,7 +84,7 @@ class AuthActivity : AppCompatActivity() {
                 binding.emailEditText.text.toString(),
                 binding.passwordEditText.text.toString()
             ).addOnCompleteListener {
-                if(it.isSuccessful){
+                if (it.isSuccessful) {
                     showHome(
                         UserProfile(
                             it.result?.user?.uid,
@@ -92,8 +95,10 @@ class AuthActivity : AppCompatActivity() {
                 }
             }.addOnFailureListener {
                 Log.d(TAG, it.message)
-                showAlert(it.message.toString())
+                showAlert("Error",it.message.toString())
             }
+        }else{
+            showAlert("Info","Introduzca valores en los campos porfavor")
         }
     }
 
@@ -108,7 +113,7 @@ class AuthActivity : AppCompatActivity() {
     }
 
     private fun setUp() {
-        title = getString(R.string.authentication)
+        title = TITLE
         binding.signUpButton.setOnClickListener { onSignUp() }
         binding.loginButton.setOnClickListener { onLogin() }
         binding.googleButton.setOnClickListener { onGoogleLogin() }
@@ -121,11 +126,11 @@ class AuthActivity : AppCompatActivity() {
         startActivity(homeIntent)
     }
 
-    private fun showAlert(msg: String) {
+    private fun showAlert(title: String, msg: String) {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle(getString(R.string.error))
+        builder.setTitle(title)
         builder.setMessage(msg)
-        builder.setPositiveButton(getString(R.string.ok), null)
+        builder.setPositiveButton("OK", null)
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }
@@ -151,7 +156,7 @@ class AuthActivity : AppCompatActivity() {
                             }
                         }.addOnFailureListener {
                             Log.d(TAG, it.message)
-                            showAlert(it.message.toString())
+                            showAlert("Error",it.message.toString())
                         }
                 }
             } catch (e: ApiException) {
