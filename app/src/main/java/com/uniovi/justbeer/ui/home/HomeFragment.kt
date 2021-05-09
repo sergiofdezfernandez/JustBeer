@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.uniovi.justbeer.databinding.HomeFragmentBinding
 import com.uniovi.justbeer.ui.details.DetailsActivity
-import com.uniovi.justbeer.ui.home.adapters.BeerListAdapter
+import com.uniovi.justbeer.ui.adapters.BeerListAdapter
 
 class HomeFragment : Fragment() {
 

@@ -1,4 +1,4 @@
-package com.uniovi.justbeer.ui.home.adapters
+package com.uniovi.justbeer.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
