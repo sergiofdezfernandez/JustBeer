@@ -22,32 +22,6 @@ class BeerListAdapter(private val items: List<Beer>?, private val itemClick: (Be
                     Picasso.get().load(image).resize(250, 550).into(binding.beerImageView)
                 }
                 itemView.setOnClickListener { itemClick(this) }
-                if(fav == false){
-                    binding.favoriteButton.setImageResource(R.drawable.ic_baseline_favorite_border_24)
-                } else {
-                    binding.favoriteButton.setImageResource(R.drawable.ic_baseline_favorite_24)
-                }
-                binding.favoriteButton.setOnClickListener {
-                    if (fav == false) {
-                        Toast.makeText(
-                            binding.root.context,
-                            binding.root.context.getString(R.string.added_beer,name),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        binding.favoriteButton.setImageResource(R.drawable.ic_baseline_favorite_24)
-                        fav = true
-                    } else {
-                        Toast.makeText(
-                            binding.root.context,
-                            binding.root.context.getString(R.string.deleted_beer,name),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        binding.favoriteButton.setImageResource(R.drawable.ic_baseline_favorite_border_24)
-                        fav = false
-                    }
-
-
-                }
             }
         }
     }
