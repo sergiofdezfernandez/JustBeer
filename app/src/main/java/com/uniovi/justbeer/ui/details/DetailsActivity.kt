@@ -67,7 +67,7 @@ class DetailsActivity : AppCompatActivity() {
 
     private fun initialize() {
         intent.getParcelableExtra<Beer>(EXTRA_BEER)?.apply {
-            Picasso.get().load(image).resize(400,600).into(binding.beerDetailsImageView)
+            Picasso.get().load(image).resize(200,600).into(binding.beerDetailsImageView)
             binding.nameTextView.text = name
             binding.abvTextView.text = "$alcohol%"
             binding.descriptionTextView.text = description
