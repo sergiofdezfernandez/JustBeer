@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AuthActivity">
+    tools:context=".ui.activities.activities.AuthActivity">
 
     <LinearLayout
+        android:id="@+id/authLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -22,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Email"
+            android:hint="@string/email_hint"
             android:inputType="textEmailAddress" />
 
         <Space
@@ -34,8 +35,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Contraseña"
+            android:hint="@string/password_hint"
             android:inputType="textPassword" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,7 +52,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Registrar" />
+                android:background="@drawable/button_rounded_border"
+                android:text="@string/sign_up"
+                android:textColor="@color/colorPrimary" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -59,7 +66,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Acceder" />
+                android:text="@string/sign_in"
+                android:textColor="@color/colorSecondary"
+                android:background="@drawable/button_rounded"/>
         </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <ImageButton
+            android:id="@+id/googleButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:contextClickable="true"
+            app:srcCompat="@mipmap/ic_google" />
+
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
