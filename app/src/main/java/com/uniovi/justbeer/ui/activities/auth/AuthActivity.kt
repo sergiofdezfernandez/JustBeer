@@ -68,9 +68,10 @@ class AuthActivity : AppCompatActivity() {
                             ProviderType.BASIC
                         )
                     )
-                } else {
-                    showAlert("Ha ocurrido un error")
                 }
+            }.addOnFailureListener {
+                Log.d(TAG, it.message)
+                showAlert(it.message.toString())
             }
         }
     }

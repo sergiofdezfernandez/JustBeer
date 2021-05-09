@@ -32,15 +32,21 @@ class ProfileFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
-        binding.logOutButton.setOnClickListener {
-            val prefs =
-                activity?.getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE)
-                    ?.edit()
-            prefs?.clear()
-            prefs?.apply()
-            FirebaseAuth.getInstance().signOut()
-            activity?.finish()
-        }
+        binding.logOutButton.setOnClickListener { onLogOut() }
+        bindUserProfile()
+    }
+
+    private fun onLogOut() {
+        val prefs =
+            activity?.getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE)
+                ?.edit()
+        prefs?.clear()
+        prefs?.apply()
+        FirebaseAuth.getInstance().signOut()
+        activity?.finish()
+    }
+
+    private fun bindUserProfile() {
         val prefs =
             activity?.getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE)
         val userProfile =
@@ -49,7 +55,6 @@ class ProfileFragment : Fragment() {
         binding.userIdTextView.text = userProfile?.id
         binding.providerTextView.text = userProfile?.provider.toString()
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
