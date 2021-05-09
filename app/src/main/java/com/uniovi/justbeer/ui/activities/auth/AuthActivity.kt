@@ -71,8 +71,10 @@ class AuthActivity : AppCompatActivity() {
                 }
             }.addOnFailureListener {
                 Log.d(TAG, it.message)
-                showAlert(it.message.toString())
+                showAlert("Error",it.message.toString())
             }
+        } else {
+            showAlert("Info","Introduzca valores en los campos porfavor")
         }
     }
 
@@ -82,7 +84,7 @@ class AuthActivity : AppCompatActivity() {
                 binding.emailEditText.text.toString(),
                 binding.passwordEditText.text.toString()
             ).addOnCompleteListener {
-                if(it.isSuccessful){
+                if (it.isSuccessful) {
                     showHome(
                         UserProfile(
                             it.result?.user?.uid,
@@ -93,8 +95,10 @@ class AuthActivity : AppCompatActivity() {
                 }
             }.addOnFailureListener {
                 Log.d(TAG, it.message)
-                showAlert(it.message.toString())
+                showAlert("Error",it.message.toString())
             }
+        }else{
+            showAlert("Info","Introduzca valores en los campos porfavor")
         }
     }
 
@@ -122,9 +126,9 @@ class AuthActivity : AppCompatActivity() {
         startActivity(homeIntent)
     }
 
-    private fun showAlert(msg: String) {
+    private fun showAlert(title: String, msg: String) {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Error")
+        builder.setTitle(title)
         builder.setMessage(msg)
         builder.setPositiveButton("OK", null)
         val dialog: AlertDialog = builder.create()
@@ -152,7 +156,7 @@ class AuthActivity : AppCompatActivity() {
                             }
                         }.addOnFailureListener {
                             Log.d(TAG, it.message)
-                            showAlert(it.message.toString())
+                            showAlert("Error",it.message.toString())
                         }
                 }
             } catch (e: ApiException) {
