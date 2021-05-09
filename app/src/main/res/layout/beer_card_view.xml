@@ -40,7 +40,7 @@
                 android:id="@+id/beerTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="TextView"
+                android:text=""
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimary"
                 android:textColorLink="#FFFFFF"
